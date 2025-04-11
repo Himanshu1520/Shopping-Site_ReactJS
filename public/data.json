@@ -1,0 +1,92 @@
+[
+    {
+      "id": 1,
+      "name": "Wireless Mouse",
+      "price": 499,
+      "category": "Electronics",
+      "description": "Ergonomic wireless mouse with 2.4GHz connectivity.",
+      "Rating": 4.2,
+      "image": "/images/mouse.png"
+    },
+    {
+      "id": 2,
+      "name": "Bluetooth Headphones",
+      "price": 1499,
+      "category": "Electronics",
+      "description": "Over-ear headphones with noise cancellation.",
+      "Rating": 4.5,
+      "image": "/images/headphone.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Water Bottle",
+      "price": 299,
+      "category": "Home & Kitchen",
+      "description": "Insulated stainless steel water bottle, 750ml.",
+      "Rating": 4.8,
+      "image": "/images/water_bottle.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Notebook",
+      "price": 99,
+      "category": "Stationery",
+      "description": "A5 size spiral-bound notebook with ruled pages.",
+      "Rating": 4.1,
+      "image": "/images/notebook.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Cup",
+      "price": 199,
+      "category": "Home & Kitchen",
+      "description": "Ceramic mug with a motivational quote.",
+      "Rating": 3.8,
+      "image": "/images/coffee.png"
+    },
+    {
+      "id": 6,
+      "name": "Desk Lamp",
+      "price": 899,
+      "category": "Electronics",
+      "description": "LED desk lamp with adjustable brightness.",
+      "Rating": 3.9,
+      "image": "/images/desk_lamp.jpg"
+    },
+    {
+      "id": 7,
+      "name": "T-Shirt",
+      "price": 599,
+      "category": "Clothing",
+      "description": "Cotton T-shirt in multiple sizes and colors.",
+      "Rating": 4.6,
+      "image": "/images/tshirt.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Backpack",
+      "price": 1299,
+      "category": "Accessories",
+      "description": "Durable backpack with laptop compartment.",
+      "Rating": 4.4,
+      "image": "/images/backpack.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Sunglasses",
+      "price": 899,
+      "category": "Accessories",
+      "description": "UV-protected polarized sunglasses.",
+      "Rating": 4.2,
+      "image": "/images/sunglasses.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Ball Pen Pack",
+      "price": 49,
+      "category": "Stationery",
+      "description": "Pack of 10 smooth-writing ball pens.",
+      "Rating": 3.9,
+      "image": "/images/ballpen.jpg"
+    }
+  ]
