@@ -4,6 +4,7 @@ import Products_View from "./Products_view";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [originalFilteredList,setOriginalFilteredList]= useState([])
 
   const [sortBy, setSortBy] = useState();
   const [categoryBy, setCategoryBy] = useState();
@@ -14,11 +15,14 @@ const App = () => {
       .then((data) => {
         setProducts(data);
         setFilteredList(data);
+        setOriginalFilteredList(data);
       });
   }, []);
 
   const handleSearch = (searchText) => {
-    let searchFiltered = [...filteredList];
+    let originalFiltered=[...originalFilteredList]
+    let searchFiltered = [...originalFiltered];
+    
     searchFiltered = searchFiltered.filter(
       (n) =>
         n.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -41,19 +45,26 @@ const App = () => {
     if (optVal === "l_h") {
       filtered.sort((a, b) => a.price - b.price);
       setFilteredList(filtered);
+      setOriginalFilteredList(filtered);
     } else if (optVal === "h_l") {
       filtered.sort((a, b) => b.price - a.price);
       setFilteredList(filtered);
+      setOriginalFilteredList(filtered);
     } else {
       if (categoryBy === "" || categoryBy === undefined) {
         setFilteredList(products);
+        setOriginalFilteredList(filtered);
       } else {
         filtered = filtered.filter((item) =>
           item.category.toLowerCase().includes(categoryBy.toLowerCase())
         );
         setFilteredList(filtered);
+        setOriginalFilteredList(filteredList);
+        
       }
     }
+    console.log(filteredList)
+        console.log(originalFilteredList)
   };
 
   const handleCategory = (optVal) => {
@@ -80,6 +91,7 @@ const App = () => {
     setCategoryBy(optVal);
 
     setFilteredList(filtered);
+    setOriginalFilteredList(filtered);
   };
 
   let catFiltered = [...products];
