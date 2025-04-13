@@ -4,6 +4,7 @@ import Products_View from "./Products_view";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+
   const [sortBy, setSortBy] = useState();
   const [categoryBy, setCategoryBy] = useState();
 
@@ -16,73 +17,69 @@ const App = () => {
       });
   }, []);
 
-  const handleSortNSearch = (action, optVal) => {
-    let filtered = [...products];
+  const handleSearch = (searchText) => {
     let searchFiltered = [...filteredList];
-    /** Sort Prices */
-    if (action === "sortBy") {
-      filtered = [...filteredList];
-      if (optVal === "l_h") {
-        filtered.sort((a, b) => a.price - b.price);
-        setFilteredList(filtered);
-      } else if (optVal === "h_l") {
-        filtered.sort((a, b) => b.price - a.price);
-        setFilteredList(filtered);
-      } else {
-        setFilteredList(products);
-      }
-    } else if (action === "searchBy") {
-      searchFiltered = searchFiltered.filter(
-        (n) =>
-          n.name.toLowerCase().includes(optVal.toLowerCase()) ||
-          n.category.toLowerCase().includes(optVal.toLowerCase())
-      );
-      console.log(searchFiltered);
-      setFilteredList(searchFiltered);
-    } else if (action === "categoryBy") {
-      let filtered = [...products];
-      filtered = filtered.filter((n) =>
-        n.category.toLowerCase().includes(optVal.toLowerCase())
-      );
-
-      setCategoryBy(optVal);
-
-      setFilteredList(filtered);
-    }
-  };
-
-  const handleCategoryAfterSort = (category_next) => {
-    let updatedProds = [...products];
-    console.log(category_next);
-    console.log("1.", updatedProds);
-    updatedProds = updatedProds.filter((n) =>
-      n.category.toLowerCase().includes(category_next.toLowerCase())
+    searchFiltered = searchFiltered.filter(
+      (n) =>
+        n.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        n.category.toLowerCase().includes(searchText.toLowerCase())
     );
-    console.log("2.", updatedProds);
-
-    if (sortBy === "l_h") {
-      updatedProds.sort((a, b) => a.price - b.price);
-    } else if (sortBy === "h_l") {
-      updatedProds.sort((a, b) => b.price - a.price);
-    }
-
-    setFilteredList(updatedProds);
-    console.log("3.", filteredList);
-    setCategoryBy("");
-    console.log("4.", updatedProds);
+    console.log(searchFiltered);
+    setFilteredList(searchFiltered);
   };
 
-  const handleSortAftercategory = (category_next) => {
-    let updatedProd = [...filteredList];
+  const handleSortOnly = (optVal) => {
+    let filtered = [...products];
 
-    if (category_next === "l_h") {
-      updatedProd.sort((a, b) => a.price - b.price);
-    } else if (category_next === "h_l") {
-      updatedProd.sort((a, b) => b.price - a.price);
+    if (categoryBy === "" || categoryBy === undefined) {
+      filtered = [...products];
+    } else {
+      filtered = filtered.filter((item) =>
+        item.category.toLowerCase().includes(categoryBy.toLowerCase())
+      );
+    }
+    if (optVal === "l_h") {
+      filtered.sort((a, b) => a.price - b.price);
+      setFilteredList(filtered);
+    } else if (optVal === "h_l") {
+      filtered.sort((a, b) => b.price - a.price);
+      setFilteredList(filtered);
+    } else {
+      if (categoryBy === "" || categoryBy === undefined) {
+        setFilteredList(products);
+      } else {
+        filtered = filtered.filter((item) =>
+          item.category.toLowerCase().includes(categoryBy.toLowerCase())
+        );
+        setFilteredList(filtered);
+      }
+    }
+  };
+
+  const handleCategory = (optVal) => {
+    let filtered = [...products];
+
+    if (sortBy === "" || sortBy === undefined) {
+      filtered = [...products];
+    } else {
+      if (sortBy === "l_h") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "h_l") {
+        filtered.sort((a, b) => (b.price - a.price));
+      } else {
+        filtered.filter((item) =>
+          item.category.toLowerCase().includes(optVal.toLowerCase())
+        );
+      }
     }
 
-    setFilteredList(updatedProd);
-    setSortBy("");
+    filtered = filtered.filter((n) =>
+      n.category.toLowerCase().includes(optVal.toLowerCase())
+    );
+
+    setCategoryBy(optVal);
+
+    setFilteredList(filtered);
   };
 
   let catFiltered = [...products];
@@ -104,8 +101,7 @@ const App = () => {
             onChange={(e) => {
               setSortBy(e.target.value);
 
-              if (categoryBy) handleSortAftercategory(e.target.value);
-              else handleSortNSearch("sortBy", e.target.value);
+              handleSortOnly(e.target.value);
             }}
           >
             <option value="">Sort By Price</option>
@@ -132,7 +128,7 @@ const App = () => {
               type="text"
               placeholder="Search by name"
               onChange={(e) => {
-                handleSortNSearch("searchBy", e.target.value);
+                handleSearch(e.target.value);
               }}
             />
           </div>
@@ -141,11 +137,7 @@ const App = () => {
             className="w-36 border border-gray-300 rounded-md "
             onChange={(e) => {
               setCategoryBy(e.target.value);
-              if (!sortBy || sortBy === "") {
-                handleCategoryAfterSort(e.target.value);
-              } else {
-                handleSortNSearch("categoryBy", e.target.value);
-              }
+              handleCategory(e.target.value);
             }}
           >
             <option value="">Categories</option>
