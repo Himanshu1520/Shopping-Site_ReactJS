@@ -28,7 +28,7 @@ const App = () => {
     setFilteredList(searchFiltered);
   };
 
-  const handleSortOnly = (optVal) => {
+  const handleSort = (optVal) => {
     let filtered = [...products];
 
     if (categoryBy === "" || categoryBy === undefined) {
@@ -101,7 +101,7 @@ const App = () => {
             onChange={(e) => {
               setSortBy(e.target.value);
 
-              handleSortOnly(e.target.value);
+              handleSort(e.target.value);
             }}
           >
             <option value="">Sort By Price</option>
